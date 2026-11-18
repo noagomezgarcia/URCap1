@@ -34,7 +34,7 @@ public class LightUpProgramNodeService implements SwingProgramNodeService<LightU
 	@Override
 	public LightUpProgramNodeContribution createNode(ProgramAPIProvider apiProvider, LightUpProgramNodeView view,
 			DataModel model, CreationContext context) {
-		return LightUpProgramNodeContribution(apiProvider, view, model);
+		return new LightUpProgramNodeContribution(apiProvider, view, model);
 	}
 
 }

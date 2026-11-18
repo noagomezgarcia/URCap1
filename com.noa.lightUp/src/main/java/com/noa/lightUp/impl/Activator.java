@@ -3,10 +3,8 @@ package com.noa.lightUp.impl;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-/**
- * Hello world activator for the OSGi bundle URCAPS contribution
- *
- */
+import com.ur.urcap.api.contribution.program.swing.SwingProgramNodeService;
+
 public class Activator implements BundleActivator {
 	@Override
 	public void start(BundleContext bundleContext) throws Exception {
@@ -20,4 +18,3 @@ public class Activator implements BundleActivator {
 		System.out.println("Activator says Goodbye World!");
 	}
 }
-
