@@ -1,4 +1,4 @@
-package com.noa.lightUp;
+package com.noa.lightUp.impl;
 
 import java.awt.Component;
 import java.awt.Dimension;

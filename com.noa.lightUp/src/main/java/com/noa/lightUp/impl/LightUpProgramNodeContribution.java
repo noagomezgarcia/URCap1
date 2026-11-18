@@ -1,4 +1,4 @@
-package com.noa.lightUp;
+package com.noa.lightUp.impl;
 
 import com.ur.urcap.api.contribution.ProgramNodeContribution;
 import com.ur.urcap.api.contribution.program.ProgramAPIProvider;
@@ -88,9 +88,19 @@ public class LightUpProgramNodeContribution implements ProgramNodeContribution{
 
 	@Override
 	public void generateScript(ScriptWriter writer) {
-		writer.appendLine("set_standard_digital_out("+getOutput()+",True)");
+		// 1. Hace que el programa del robot se detenga y espere hasta que el botón (DI) se pulse
+		writer.appendLine("while (get_standard_digital_in(" + getOutput() + ") == False):");
+		writer.appendLine("  sync()");
+		writer.appendLine("end");
+		
+		// 2. Enciende la luz correspondiente (DO)
+		writer.appendLine("set_standard_digital_out(" + getOutput() + ", True)");
+		
+		// 3. Mantiene la luz encendida el tiempo seleccionado en el slider
 		writer.sleep(getDuration());
-		writer.appendLine("set_standard_digital_out("+getOutput()+",False)");
+		
+		// 4. Apaga la luz
+		writer.appendLine("set_standard_digital_out(" + getOutput() + ", False)");
 	}
 
 }
