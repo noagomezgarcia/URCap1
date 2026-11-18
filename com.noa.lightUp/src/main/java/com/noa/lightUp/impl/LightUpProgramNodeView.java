@@ -1,4 +1,4 @@
-package com;
+package com.noa.lightUp;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -31,21 +31,21 @@ public class LightUpProgramNodeView implements SwingProgramNodeView<LightUpProgr
     private JSlider durationSlider = new JSlider();
 
     @Override 
-    public  void buildUI (Jpanel panel, ContributionProvider<LightUpProgramNodeContribution> provider) {
+    public void buildUI(JPanel panel, ContributionProvider<LightUpProgramNodeContribution> provider) {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         panel.add(createDescription("Select wich output to Light Up:"));
         panel.add(createSpacer(5));
-        panel.add(createIOComboBox(ioComboBox));
-        panel.add(createIOComboBox(20));
+        panel.add(createIOComboBox(ioComboBox, provider));
+        panel.add(createSpacer(20));
         panel.add(createDescription("Select the duration of the Light Up:"));
         panel.add(createSpacer(5));
         panel.add(createDurationSlider(durationSlider, 0, 10));
     }
 
-    public void  setIOComboBoxItems(Integer[] items) {
+    public void setIOComboBoxItems(Integer[] items) {
         ioComboBox.removeAllItems();
-        ioComboBox.setModel(new DefaultComboBoxModel<Integer>(Items));
+        ioComboBox.setModel(new DefaultComboBoxModel<Integer>(items));
     }
 
     public void setIOComboBoxSelection(Integer item){
@@ -111,6 +111,8 @@ public class LightUpProgramNodeView implements SwingProgramNodeView<LightUpProgr
         public void stateChanged(ChangeEvent e) {
             int newValue = slider.getValue();
             value.setText(Integer.toString(newValue)+" s");
+            // Nota: Aquí podrías llamar al provider para guardar la duración en el DataModel
+            // si quieres que el cambio en el slider se guarde instantáneamente al arrastrarlo.
         }
        });
 
@@ -120,7 +122,7 @@ public class LightUpProgramNodeView implements SwingProgramNodeView<LightUpProgr
        return box;
     } 
 
-    private Component createSpacer (int height){
+    private Component createSpacer(int height){
         return Box.createRigidArea(new Dimension(0, height));
     }
 

@@ -1,4 +1,4 @@
-package com;
+package com.noa.lightUp;
 
 import java.util.Locale;
 

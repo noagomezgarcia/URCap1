@@ -1,4 +1,4 @@
-package com.noa.lightUp.impl;
+package com.noa.lightUp;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;

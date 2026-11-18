@@ -1,4 +1,4 @@
-package com;
+package com.noa.lightUp;
 
 import com.ur.urcap.api.contribution.ProgramNodeContribution;
 import com.ur.urcap.api.contribution.program.ProgramAPIProvider;
