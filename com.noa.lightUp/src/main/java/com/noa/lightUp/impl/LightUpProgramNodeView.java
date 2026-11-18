@@ -34,13 +34,13 @@ public class LightUpProgramNodeView implements SwingProgramNodeView<LightUpProgr
     public void buildUI(JPanel panel, ContributionProvider<LightUpProgramNodeContribution> provider) {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        panel.add(createDescription("Select wich output to Light Up:"));
+        panel.add(createDescription("Select which output to Light Up:"));
         panel.add(createSpacer(5));
         panel.add(createIOComboBox(ioComboBox, provider));
         panel.add(createSpacer(20));
         panel.add(createDescription("Select the duration of the Light Up:"));
         panel.add(createSpacer(5));
-        panel.add(createDurationSlider(durationSlider, 0, 10));
+        panel.add(createDurationSlider(durationSlider, 0, 10, provider));
     }
 
     public void setIOComboBoxItems(Integer[] items) {
@@ -92,7 +92,7 @@ public class LightUpProgramNodeView implements SwingProgramNodeView<LightUpProgr
         durationSlider.setValue(value);
     }
 
-    private Box createDurationSlider(final JSlider slider, int min, int max){
+    private Box createDurationSlider(final JSlider slider, int min, int max, final ContributionProvider<LightUpProgramNodeContribution> provider){
        Box box = Box.createHorizontalBox();
        box.setAlignmentX(Component.LEFT_ALIGNMENT); 
 
@@ -111,8 +111,11 @@ public class LightUpProgramNodeView implements SwingProgramNodeView<LightUpProgr
         public void stateChanged(ChangeEvent e) {
             int newValue = slider.getValue();
             value.setText(Integer.toString(newValue)+" s");
-            // Nota: Aquí podrías llamar al provider para guardar la duración en el DataModel
-            // si quieres que el cambio en el slider se guarde instantáneamente al arrastrarlo.
+            
+            // Guarda el nuevo valor en el DataModel cuando sueltas el slider
+            if (!slider.getValueIsAdjusting()) {
+                provider.get().onDurationSelection(newValue);
+            }
         }
        });
 
